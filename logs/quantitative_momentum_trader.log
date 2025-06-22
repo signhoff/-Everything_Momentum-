@@ -1,0 +1,351 @@
+2025-06-19 13:29:10,523 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 19, 'tickType': 73, 'price': 121.83, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:10,528 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 19, 'tickType': 74, 'size': Decimal('21593')}
+2025-06-19 13:29:10,529 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 19, 'tickType': 75, 'price': 125.57, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:14,185 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 19, 'tickType': 66, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:14,186 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 19, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:14,187 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 19, 'tickType': 67, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:14,187 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 19, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:14,187 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 19, 'tickType': 76, 'price': 0.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:14,188 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 19}
+2025-06-19 13:29:14,188 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 19}
+2025-06-19 13:29:14,188 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x072\x002\x0019\x00'
+2025-06-19 13:29:14,189 - ibapi.utils - INFO - ANSWER error {'reqId': 19, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:19", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:14,190 - ibapi.wrapper - ERROR - ERROR 19 300 Can't find EId with tickerId:19
+2025-06-19 13:29:14,303 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 20, 'contract': 1978232486992: 0,HOOD,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:14,304 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00+9\x008\x0020\x000\x00HOOD\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:14,349 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 20}
+2025-06-19 13:29:14,350 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 21, 'contract': 1978232483920: 504546674,HOOD,STK,,,0,,,SMART,NASDAQ,USD,HOOD,NMS,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:14,350 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00J1\x0011\x0021\x00504546674\x00HOOD\x00STK\x00\x000.0\x00\x00\x00SMART\x00NASDAQ\x00USD\x00HOOD\x00NMS\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:14,935 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 21, 'minTick': 0.01, 'bboExchange': '9c0001', 'snapshotPermissions': 4}
+2025-06-19 13:29:14,935 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 21, 'marketDataType': 3}
+2025-06-19 13:29:14,936 - ibapi.utils - INFO - ANSWER error {'reqId': 21, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:14,936 - ibapi.wrapper - ERROR - ERROR 21 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:29:15,516 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 21, 'tickType': 72, 'price': 78.74, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:15,517 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 21, 'tickType': 73, 'price': 74.54, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:15,517 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 21, 'tickType': 74, 'size': Decimal('361855')}
+2025-06-19 13:29:15,517 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 21, 'tickType': 75, 'price': 74.95, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:15,518 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 21, 'tickType': 68, 'price': 78.57, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:15,518 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 21, 'tickType': 71, 'size': Decimal('100')}
+2025-06-19 13:29:15,518 - ibapi.utils - INFO - ANSWER tickString {'reqId': 21, 'tickType': 88, 'value': '1750291198'}
+2025-06-19 13:29:19,189 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 21, 'tickType': 66, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:19,190 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 21, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:19,190 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 21, 'tickType': 67, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:19,190 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 21, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:19,191 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 21, 'tickType': 76, 'price': 0.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:19,191 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 21}
+2025-06-19 13:29:19,191 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 21}
+2025-06-19 13:29:19,192 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x072\x002\x0021\x00'
+2025-06-19 13:29:19,193 - ibapi.utils - INFO - ANSWER error {'reqId': 21, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:21", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:19,193 - ibapi.wrapper - ERROR - ERROR 21 300 Can't find EId with tickerId:21
+2025-06-19 13:29:19,303 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 22, 'contract': 1978232483920: 0,MCHP,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:19,303 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00+9\x008\x0022\x000\x00MCHP\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:19,345 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 22}
+2025-06-19 13:29:19,346 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 23, 'contract': 1978232486992: 271568,MCHP,STK,,,0,,,SMART,NASDAQ,USD,MCHP,NMS,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:19,347 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00G1\x0011\x0023\x00271568\x00MCHP\x00STK\x00\x000.0\x00\x00\x00SMART\x00NASDAQ\x00USD\x00MCHP\x00NMS\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:19,941 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 23, 'minTick': 0.01, 'bboExchange': '9c0001', 'snapshotPermissions': 4}
+2025-06-19 13:29:19,941 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 23, 'marketDataType': 3}
+2025-06-19 13:29:19,942 - ibapi.utils - INFO - ANSWER error {'reqId': 23, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:19,942 - ibapi.wrapper - ERROR - ERROR 23 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:29:20,531 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 23, 'tickType': 72, 'price': 69.31, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:20,531 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 23, 'tickType': 73, 'price': 67.54, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:20,532 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 23, 'tickType': 74, 'size': Decimal('56427')}
+2025-06-19 13:29:20,532 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 23, 'tickType': 75, 'price': 67.69, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:20,532 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 23, 'tickType': 68, 'price': 68.02, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:20,532 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 23, 'tickType': 71, 'size': Decimal('5400')}
+2025-06-19 13:29:20,533 - ibapi.utils - INFO - ANSWER tickString {'reqId': 23, 'tickType': 88, 'value': '1750279231'}
+2025-06-19 13:29:24,195 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 23, 'tickType': 66, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:24,195 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 23, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:24,196 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 23, 'tickType': 67, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:24,196 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 23, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:24,196 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 23, 'tickType': 76, 'price': 0.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:24,196 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 23}
+2025-06-19 13:29:24,197 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 23}
+2025-06-19 13:29:24,197 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x072\x002\x0023\x00'
+2025-06-19 13:29:24,198 - ibapi.utils - INFO - ANSWER error {'reqId': 23, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:23", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:24,198 - ibapi.wrapper - ERROR - ERROR 23 300 Can't find EId with tickerId:23
+2025-06-19 13:29:24,303 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 24, 'contract': 1978232486992: 0,MSTR,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:24,303 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00+9\x008\x0024\x000\x00MSTR\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:24,349 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 24}
+2025-06-19 13:29:24,350 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 25, 'contract': 1978232483920: 272110,MSTR,STK,,,0,,,SMART,NASDAQ,USD,MSTR,NMS,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:24,350 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00G1\x0011\x0025\x00272110\x00MSTR\x00STK\x00\x000.0\x00\x00\x00SMART\x00NASDAQ\x00USD\x00MSTR\x00NMS\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:24,948 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 25, 'minTick': 0.01, 'bboExchange': '9c0001', 'snapshotPermissions': 4}
+2025-06-19 13:29:24,948 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 25, 'marketDataType': 3}
+2025-06-19 13:29:24,949 - ibapi.utils - INFO - ANSWER error {'reqId': 25, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:24,949 - ibapi.wrapper - ERROR - ERROR 25 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:29:25,534 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 25, 'tickType': 68, 'price': 370.5, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:25,535 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 25, 'tickType': 71, 'size': Decimal('100')}
+2025-06-19 13:29:25,535 - ibapi.utils - INFO - ANSWER tickString {'reqId': 25, 'tickType': 88, 'value': '1750291114'}
+2025-06-19 13:29:25,535 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 25, 'tickType': 72, 'price': 374.91, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:25,536 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 25, 'tickType': 73, 'price': 367.42, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:25,536 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 25, 'tickType': 74, 'size': Decimal('92005')}
+2025-06-19 13:29:25,536 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 25, 'tickType': 75, 'price': 375.18, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:29,204 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 25, 'tickType': 66, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:29,205 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 25, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:29,205 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 25, 'tickType': 67, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:29,205 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 25, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:29,206 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 25, 'tickType': 76, 'price': 0.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:29,206 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 25}
+2025-06-19 13:29:29,206 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 25}
+2025-06-19 13:29:29,206 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x072\x002\x0025\x00'
+2025-06-19 13:29:29,207 - ibapi.utils - INFO - ANSWER error {'reqId': 25, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:25", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:29,207 - ibapi.wrapper - ERROR - ERROR 25 300 Can't find EId with tickerId:25
+2025-06-19 13:29:29,316 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 26, 'contract': 1978232483920: 0,SMCI,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:29,317 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00+9\x008\x0026\x000\x00SMCI\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:29,367 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 26}
+2025-06-19 13:29:29,367 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 27, 'contract': 1978232486992: 731466419,SMCI,STK,,,0,,,SMART,NASDAQ,USD,SMCI,NMS,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:29,368 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00J1\x0011\x0027\x00731466419\x00SMCI\x00STK\x00\x000.0\x00\x00\x00SMART\x00NASDAQ\x00USD\x00SMCI\x00NMS\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:29,954 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 27, 'minTick': 0.01, 'bboExchange': '9c0001', 'snapshotPermissions': 4}
+2025-06-19 13:29:29,954 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 27, 'marketDataType': 3}
+2025-06-19 13:29:29,955 - ibapi.utils - INFO - ANSWER error {'reqId': 27, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:29,955 - ibapi.wrapper - ERROR - ERROR 27 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:29:30,544 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 27, 'tickType': 72, 'price': 45.67, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:30,545 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 27, 'tickType': 73, 'price': 42.79, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:30,545 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 27, 'tickType': 74, 'size': Decimal('406546')}
+2025-06-19 13:29:30,545 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 27, 'tickType': 75, 'price': 43.11, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:30,546 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 27, 'tickType': 68, 'price': 44.44, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:30,546 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 27, 'tickType': 71, 'size': Decimal('100')}
+2025-06-19 13:29:30,546 - ibapi.utils - INFO - ANSWER tickString {'reqId': 27, 'tickType': 88, 'value': '1750291190'}
+2025-06-19 13:29:34,211 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 27, 'tickType': 66, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:34,211 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 27, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:34,212 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 27, 'tickType': 67, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:34,212 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 27, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:34,212 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 27, 'tickType': 76, 'price': 0.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:34,212 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 27}
+2025-06-19 13:29:34,213 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 27}
+2025-06-19 13:29:34,213 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x072\x002\x0027\x00'
+2025-06-19 13:29:34,214 - ibapi.utils - INFO - ANSWER error {'reqId': 27, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:27", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:34,214 - ibapi.wrapper - ERROR - ERROR 27 300 Can't find EId with tickerId:27
+2025-06-19 13:29:34,319 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 28, 'contract': 1978232486992: 0,MRNA,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:34,320 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00+9\x008\x0028\x000\x00MRNA\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:34,370 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 28}
+2025-06-19 13:29:34,371 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 29, 'contract': 1978232483920: 344809106,MRNA,STK,,,0,,,SMART,NASDAQ,USD,MRNA,NMS,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:34,371 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00J1\x0011\x0029\x00344809106\x00MRNA\x00STK\x00\x000.0\x00\x00\x00SMART\x00NASDAQ\x00USD\x00MRNA\x00NMS\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:34,959 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 29, 'minTick': 0.01, 'bboExchange': '9c0001', 'snapshotPermissions': 4}
+2025-06-19 13:29:34,960 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 29, 'marketDataType': 3}
+2025-06-19 13:29:34,960 - ibapi.utils - INFO - ANSWER error {'reqId': 29, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:34,961 - ibapi.wrapper - ERROR - ERROR 29 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:29:35,549 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 29, 'tickType': 68, 'price': 25.45, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:35,549 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 29, 'tickType': 71, 'size': Decimal('100')}
+2025-06-19 13:29:35,549 - ibapi.utils - INFO - ANSWER tickString {'reqId': 29, 'tickType': 88, 'value': '1750291198'}
+2025-06-19 13:29:35,550 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 29, 'tickType': 72, 'price': 25.85, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:35,550 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 29, 'tickType': 73, 'price': 25.06, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:35,550 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 29, 'tickType': 74, 'size': Decimal('75269')}
+2025-06-19 13:29:35,551 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 29, 'tickType': 75, 'price': 25.55, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:39,219 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 29, 'tickType': 66, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:39,219 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 29, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:39,220 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 29, 'tickType': 67, 'price': -1.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:39,220 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 29, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:39,220 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 29, 'tickType': 76, 'price': 0.0, 'attrib': 1978233433808: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:39,221 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 29}
+2025-06-19 13:29:39,221 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 29}
+2025-06-19 13:29:39,221 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x072\x002\x0029\x00'
+2025-06-19 13:29:39,222 - ibapi.utils - INFO - ANSWER error {'reqId': 29, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:29", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:39,222 - ibapi.wrapper - ERROR - ERROR 29 300 Can't find EId with tickerId:29
+2025-06-19 13:29:39,334 - ibapi.client - INFO - disconnecting
+2025-06-19 13:29:39,334 - ibapi.utils - INFO - ANSWER connectionClosed {}
+2025-06-19 13:29:39,429 - engine.execution_manager - INFO - ExecutionManager initialized.
+2025-06-19 13:29:39,429 - engine.execution_manager - INFO - Calculating rebalancing orders for long/short portfolio...
+2025-06-19 13:29:39,430 - engine.execution_manager - INFO - Order calculation complete. Total orders to place: 14.
+2025-06-19 13:29:39,431 - engine.simulated_portfolio_manager - INFO - Simulating execution of trades to update portfolio state...
+2025-06-19 13:29:39,432 - engine.simulated_portfolio_manager - INFO - Trade simulation complete. New cash: $50,951.52, Positions: 14
+2025-06-19 13:29:39,434 - engine.simulated_portfolio_manager - INFO - Successfully saved portfolio state to data\CORE_portfolio_state.csv.
+2025-06-19 13:29:39,434 - __main__ - INFO - --- Starting simulation for strategy: SMOOTH ---
+2025-06-19 13:29:39,435 - engine.simulated_portfolio_manager - WARNING - Portfolio file not found at data\SMOOTH_portfolio_state.csv. Creating new portfolio.
+2025-06-19 13:29:39,436 - engine.simulated_portfolio_manager - INFO - Successfully saved portfolio state to data\SMOOTH_portfolio_state.csv.
+2025-06-19 13:29:39,437 - engine.portfolio_constructor - INFO - PortfolioConstructor initialized.
+2025-06-19 13:29:39,438 - engine.portfolio_constructor - INFO - --- Starting portfolio construction for strategy: SMOOTH ---
+2025-06-19 13:29:39,438 - engine.portfolio_constructor - INFO - Applying universe filters (liquidity and sector)...
+2025-06-19 13:29:39,441 - engine.portfolio_constructor - INFO - Liquidity filter: Removed 199 stocks below the 20% market cap percentile (cutoff: $6,372,858,061).
+2025-06-19 13:29:39,441 - engine.portfolio_constructor - INFO - Sector filter: Removed 0 stocks from excluded sectors (['Financial Services', 'Financials']).
+2025-06-19 13:29:39,442 - engine.portfolio_constructor - INFO - Finished universe filtering. 795 stocks are eligible for momentum calculation.
+2025-06-19 13:29:39,442 - engine.portfolio_constructor - INFO - Calculating 12-2 momentum...
+2025-06-19 13:29:39,641 - engine.portfolio_constructor - INFO - Momentum calculated for 791 stocks.
+2025-06-19 13:29:39,644 - engine.portfolio_constructor - INFO - Applying smoothness filter...
+2025-06-19 13:29:39,645 - engine.portfolio_constructor - INFO - Removed 308 stocks with negative momentum.
+2025-06-19 13:29:40,113 - engine.portfolio_constructor - INFO - Removed 128 stocks with fewer than 7 positive months.
+2025-06-19 13:29:40,116 - engine.portfolio_constructor - INFO - Ranking stocks by momentum and selecting top and bottom percentiles...
+2025-06-19 13:29:40,120 - engine.portfolio_constructor - INFO - Final target portfolio generated. Longs: 3, Shorts: 3.
+2025-06-19 13:29:40,135 - ibapi.client - INFO - sent startApi
+2025-06-19 13:29:40,135 - ibapi.utils - INFO - REQUEST startApi {}
+2025-06-19 13:29:40,136 - ibapi.client - INFO - SENDING startApi b'\x00\x00\x00\n71\x002\x00101\x00\x00'
+2025-06-19 13:29:40,136 - ibapi.utils - INFO - ANSWER connectAck {}
+2025-06-19 13:29:40,137 - ibapi.utils - INFO - ANSWER nextValidId {'orderId': 1}
+2025-06-19 13:29:40,139 - ibapi.utils - INFO - ANSWER managedAccounts {'accountsList': 'DUA527332'}
+2025-06-19 13:29:40,139 - ibapi.utils - INFO - ANSWER error {'reqId': -1, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:usfuture', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:40,139 - ibapi.wrapper - ERROR - ERROR -1 2104 Market data farm connection is OK:usfuture
+2025-06-19 13:29:40,140 - ibapi.utils - INFO - REQUEST reqMarketDataType {'marketDataType': 3}
+2025-06-19 13:29:40,141 - ibapi.client - INFO - SENDING reqMarketDataType b'\x00\x00\x00\x0759\x001\x003\x00'
+2025-06-19 13:29:40,141 - ibapi.utils - INFO - ANSWER error {'reqId': -1, 'errorCode': 2104, 'errorString': 'Market data farm connection is OK:usfarm', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:40,141 - ibapi.wrapper - ERROR - ERROR -1 2104 Market data farm connection is OK:usfarm
+2025-06-19 13:29:40,142 - ibapi.utils - INFO - ANSWER error {'reqId': -1, 'errorCode': 2106, 'errorString': 'HMDS data farm connection is OK:euhmds', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:40,143 - ibapi.wrapper - ERROR - ERROR -1 2106 HMDS data farm connection is OK:euhmds
+2025-06-19 13:29:40,143 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 2, 'contract': 1978232487504: 0,APP,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:40,144 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00)9\x008\x002\x000\x00APP\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:40,144 - ibapi.utils - INFO - ANSWER error {'reqId': -1, 'errorCode': 2106, 'errorString': 'HMDS data farm connection is OK:fundfarm', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:40,144 - ibapi.wrapper - ERROR - ERROR -1 2106 HMDS data farm connection is OK:fundfarm
+2025-06-19 13:29:40,145 - ibapi.utils - INFO - ANSWER error {'reqId': -1, 'errorCode': 2106, 'errorString': 'HMDS data farm connection is OK:ushmds', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:40,146 - ibapi.wrapper - ERROR - ERROR -1 2106 HMDS data farm connection is OK:ushmds
+2025-06-19 13:29:40,147 - ibapi.utils - INFO - ANSWER error {'reqId': -1, 'errorCode': 2158, 'errorString': 'Sec-def data farm connection is OK:secdefil', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:40,147 - ibapi.wrapper - ERROR - ERROR -1 2158 Sec-def data farm connection is OK:secdefil
+2025-06-19 13:29:40,219 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 2}
+2025-06-19 13:29:40,219 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 3, 'contract': 1978232483920: 481863646,APP,STK,,,0,,,SMART,NASDAQ,USD,APP,NMS,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:40,220 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00G1\x0011\x003\x00481863646\x00APP\x00STK\x00\x000.0\x00\x00\x00SMART\x00NASDAQ\x00USD\x00APP\x00NMS\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:40,466 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 3, 'minTick': 0.01, 'bboExchange': '9c0001', 'snapshotPermissions': 4}
+2025-06-19 13:29:40,467 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 3, 'marketDataType': 3}
+2025-06-19 13:29:40,467 - ibapi.utils - INFO - ANSWER error {'reqId': 3, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:40,468 - ibapi.wrapper - ERROR - ERROR 3 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:29:41,062 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 3, 'tickType': 68, 'price': 344.1, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:41,062 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 3, 'tickType': 71, 'size': Decimal('100')}
+2025-06-19 13:29:41,063 - ibapi.utils - INFO - ANSWER tickString {'reqId': 3, 'tickType': 88, 'value': '1750290632'}
+2025-06-19 13:29:41,065 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 3, 'tickType': 72, 'price': 361.89, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:41,065 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 3, 'tickType': 73, 'price': 338.65, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:41,066 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 3, 'tickType': 74, 'size': Decimal('58163')}
+2025-06-19 13:29:41,066 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 3, 'tickType': 75, 'price': 360.45, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:44,222 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 3, 'tickType': 76, 'price': 0.0, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:44,222 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 3, 'tickType': 66, 'price': -1.0, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:44,223 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 3, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:44,223 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 3, 'tickType': 67, 'price': -1.0, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:44,224 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 3, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:44,224 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 3}
+2025-06-19 13:29:44,224 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 3}
+2025-06-19 13:29:44,225 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x062\x002\x003\x00'
+2025-06-19 13:29:44,225 - ibapi.utils - INFO - ANSWER error {'reqId': 3, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:3", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:44,226 - ibapi.wrapper - ERROR - ERROR 3 300 Can't find EId with tickerId:3
+2025-06-19 13:29:44,331 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 4, 'contract': 1978232483920: 0,APG,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:44,331 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00)9\x008\x004\x000\x00APG\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:44,395 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 4}
+2025-06-19 13:29:44,396 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 5, 'contract': 1978232487504: 419583227,APG,STK,,,0,,,SMART,NYSE,USD,APG,APG,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:44,397 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00E1\x0011\x005\x00419583227\x00APG\x00STK\x00\x000.0\x00\x00\x00SMART\x00NYSE\x00USD\x00APG\x00APG\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:44,972 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 5, 'marketDataType': 3}
+2025-06-19 13:29:44,973 - ibapi.utils - INFO - ANSWER error {'reqId': 5, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:44,973 - ibapi.wrapper - ERROR - ERROR 5 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:29:45,481 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 5, 'minTick': 0.01, 'bboExchange': 'a60001', 'snapshotPermissions': 4}
+2025-06-19 13:29:45,567 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 5, 'tickType': 72, 'price': 49.55, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:45,568 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 5, 'tickType': 73, 'price': 47.92, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:45,568 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 5, 'tickType': 74, 'size': Decimal('15002')}
+2025-06-19 13:29:45,568 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 5, 'tickType': 75, 'price': 48.89, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:45,568 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 5, 'tickType': 68, 'price': 51.96, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:45,568 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 5, 'tickType': 71, 'size': Decimal('100')}
+2025-06-19 13:29:45,569 - ibapi.utils - INFO - ANSWER tickString {'reqId': 5, 'tickType': 88, 'value': '1750291181'}
+2025-06-19 13:29:49,227 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 5, 'tickType': 66, 'price': -1.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:49,227 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 5, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:49,228 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 5, 'tickType': 67, 'price': -1.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:49,228 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 5, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:49,228 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 5, 'tickType': 76, 'price': 0.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:49,228 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 5}
+2025-06-19 13:29:49,229 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 5}
+2025-06-19 13:29:49,229 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x062\x002\x005\x00'
+2025-06-19 13:29:49,230 - ibapi.utils - INFO - ANSWER error {'reqId': 5, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:5", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:49,230 - ibapi.wrapper - ERROR - ERROR 5 300 Can't find EId with tickerId:5
+2025-06-19 13:29:49,334 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 6, 'contract': 1978232487504: 0,PLTR,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:49,335 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00*9\x008\x006\x000\x00PLTR\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:49,379 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 6}
+2025-06-19 13:29:49,380 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 7, 'contract': 1978232483920: 444857009,PLTR,STK,,,0,,,SMART,NASDAQ,USD,PLTR,NMS,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:49,380 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00I1\x0011\x007\x00444857009\x00PLTR\x00STK\x00\x000.0\x00\x00\x00SMART\x00NASDAQ\x00USD\x00PLTR\x00NMS\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:49,985 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 7, 'minTick': 0.01, 'bboExchange': '9c0001', 'snapshotPermissions': 4}
+2025-06-19 13:29:49,985 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 7, 'marketDataType': 3}
+2025-06-19 13:29:49,986 - ibapi.utils - INFO - ANSWER error {'reqId': 7, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:49,986 - ibapi.wrapper - ERROR - ERROR 7 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:29:50,562 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 7, 'tickType': 72, 'price': 140.36, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:50,562 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 7, 'tickType': 73, 'price': 137.49, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:50,562 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 7, 'tickType': 74, 'size': Decimal('582603')}
+2025-06-19 13:29:50,563 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 7, 'tickType': 75, 'price': 138.2, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:50,563 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 7, 'tickType': 68, 'price': 139.7, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:50,563 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 7, 'tickType': 71, 'size': Decimal('1200')}
+2025-06-19 13:29:50,564 - ibapi.utils - INFO - ANSWER tickString {'reqId': 7, 'tickType': 88, 'value': '1750291183'}
+2025-06-19 13:29:54,236 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 7, 'tickType': 66, 'price': -1.0, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:54,236 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 7, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:54,236 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 7, 'tickType': 67, 'price': -1.0, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:54,237 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 7, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:54,237 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 7, 'tickType': 76, 'price': 0.0, 'attrib': 1978233437072: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:54,237 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 7}
+2025-06-19 13:29:54,238 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 7}
+2025-06-19 13:29:54,238 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x062\x002\x007\x00'
+2025-06-19 13:29:54,239 - ibapi.utils - INFO - ANSWER error {'reqId': 7, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:7", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:54,239 - ibapi.wrapper - ERROR - ERROR 7 300 Can't find EId with tickerId:7
+2025-06-19 13:29:54,341 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 8, 'contract': 1978232483920: 0,HUBB,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:54,342 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00*9\x008\x008\x000\x00HUBB\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:54,394 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 8}
+2025-06-19 13:29:54,395 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 9, 'contract': 1978232487504: 216386790,HUBB,STK,,,0,,,SMART,NYSE,USD,HUBB,HUBB,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:54,395 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00H1\x0011\x009\x00216386790\x00HUBB\x00STK\x00\x000.0\x00\x00\x00SMART\x00NYSE\x00USD\x00HUBB\x00HUBB\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:54,990 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 9, 'marketDataType': 3}
+2025-06-19 13:29:54,991 - ibapi.utils - INFO - ANSWER error {'reqId': 9, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:54,992 - ibapi.wrapper - ERROR - ERROR 9 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:29:55,486 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 9, 'minTick': 0.01, 'bboExchange': 'a60001', 'snapshotPermissions': 4}
+2025-06-19 13:29:55,574 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 9, 'tickType': 68, 'price': 398.73, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:55,575 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 9, 'tickType': 71, 'size': Decimal('700')}
+2025-06-19 13:29:55,575 - ibapi.utils - INFO - ANSWER tickString {'reqId': 9, 'tickType': 88, 'value': '1750276945'}
+2025-06-19 13:29:55,575 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 9, 'tickType': 72, 'price': 402.37, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:55,576 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 9, 'tickType': 73, 'price': 391.43, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:55,576 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 9, 'tickType': 74, 'size': Decimal('6063')}
+2025-06-19 13:29:55,576 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 9, 'tickType': 75, 'price': 391.22, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:59,241 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 9, 'tickType': 66, 'price': -1.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:59,242 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 9, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:29:59,242 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 9, 'tickType': 67, 'price': -1.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:59,243 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 9, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:29:59,243 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 9, 'tickType': 76, 'price': 0.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:29:59,243 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 9}
+2025-06-19 13:29:59,244 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 9}
+2025-06-19 13:29:59,244 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x062\x002\x009\x00'
+2025-06-19 13:29:59,245 - ibapi.utils - INFO - ANSWER error {'reqId': 9, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:9", 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:59,246 - ibapi.wrapper - ERROR - ERROR 9 300 Can't find EId with tickerId:9
+2025-06-19 13:29:59,353 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 10, 'contract': 1978232487504: 0,MSTR,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:29:59,353 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00+9\x008\x0010\x000\x00MSTR\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:29:59,401 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 10}
+2025-06-19 13:29:59,402 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 11, 'contract': 1978232483920: 272110,MSTR,STK,,,0,,,SMART,NASDAQ,USD,MSTR,NMS,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:29:59,402 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00G1\x0011\x0011\x00272110\x00MSTR\x00STK\x00\x000.0\x00\x00\x00SMART\x00NASDAQ\x00USD\x00MSTR\x00NMS\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:29:59,992 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 11, 'minTick': 0.01, 'bboExchange': '9c0001', 'snapshotPermissions': 4}
+2025-06-19 13:29:59,992 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 11, 'marketDataType': 3}
+2025-06-19 13:29:59,993 - ibapi.utils - INFO - ANSWER error {'reqId': 11, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:29:59,994 - ibapi.wrapper - ERROR - ERROR 11 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:30:00,581 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 11, 'tickType': 68, 'price': 370.5, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:00,581 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 11, 'tickType': 71, 'size': Decimal('100')}
+2025-06-19 13:30:00,582 - ibapi.utils - INFO - ANSWER tickString {'reqId': 11, 'tickType': 88, 'value': '1750291114'}
+2025-06-19 13:30:00,582 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 11, 'tickType': 72, 'price': 374.91, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:00,582 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 11, 'tickType': 73, 'price': 367.42, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:00,583 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 11, 'tickType': 74, 'size': Decimal('92005')}
+2025-06-19 13:30:00,583 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 11, 'tickType': 75, 'price': 375.18, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:04,252 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 11, 'tickType': 66, 'price': -1.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:04,252 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 11, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:30:04,252 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 11, 'tickType': 67, 'price': -1.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:04,252 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 11, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:30:04,253 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 11, 'tickType': 76, 'price': 0.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:04,253 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 11}
+2025-06-19 13:30:04,253 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 11}
+2025-06-19 13:30:04,254 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x072\x002\x0011\x00'
+2025-06-19 13:30:04,254 - ibapi.utils - INFO - ANSWER error {'reqId': 11, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:11", 'advancedOrderRejectJson': ''}
+2025-06-19 13:30:04,254 - ibapi.wrapper - ERROR - ERROR 11 300 Can't find EId with tickerId:11
+2025-06-19 13:30:04,363 - ibapi.utils - INFO - REQUEST reqContractDetails {'reqId': 12, 'contract': 1978232483920: 0,ANSS,STK,,,0,,,SMART,,USD,,,False,,,,combo:}
+2025-06-19 13:30:04,363 - ibapi.client - INFO - SENDING reqContractDetails b'\x00\x00\x00+9\x008\x0012\x000\x00ANSS\x00STK\x00\x000.0\x00\x00\x00SMART\x00\x00USD\x00\x00\x000\x00\x00\x00\x00'
+2025-06-19 13:30:04,411 - ibapi.utils - INFO - ANSWER contractDetailsEnd {'reqId': 12}
+2025-06-19 13:30:04,412 - ibapi.utils - INFO - REQUEST reqMktData {'reqId': 13, 'contract': 1978232487504: 4726368,ANSS,STK,,,0,,,SMART,NASDAQ,USD,ANSS,NMS,False,,,,combo:, 'genericTickList': '4,9,68', 'snapshot': True, 'regulatorySnapshot': False, 'mktDataOptions': []}
+2025-06-19 13:30:04,412 - ibapi.client - INFO - SENDING reqMktData b'\x00\x00\x00H1\x0011\x0013\x004726368\x00ANSS\x00STK\x00\x000.0\x00\x00\x00SMART\x00NASDAQ\x00USD\x00ANSS\x00NMS\x000\x004,9,68\x001\x000\x00\x00'
+2025-06-19 13:30:05,000 - ibapi.utils - INFO - ANSWER marketDataType {'reqId': 13, 'marketDataType': 3}
+2025-06-19 13:30:05,001 - ibapi.utils - INFO - ANSWER error {'reqId': 13, 'errorCode': 10167, 'errorString': 'Requested market data is not subscribed. Displaying delayed market data.', 'advancedOrderRejectJson': ''}
+2025-06-19 13:30:05,001 - ibapi.wrapper - ERROR - ERROR 13 10167 Requested market data is not subscribed. Displaying delayed market data.
+2025-06-19 13:30:05,499 - ibapi.utils - INFO - ANSWER tickReqParams {'tickerId': 13, 'minTick': 0.01, 'bboExchange': '9c0001', 'snapshotPermissions': 4}
+2025-06-19 13:30:05,584 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 13, 'tickType': 72, 'price': 338.64, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:05,585 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 13, 'tickType': 73, 'price': 335.71, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:05,585 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 13, 'tickType': 74, 'size': Decimal('3989')}
+2025-06-19 13:30:05,585 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 13, 'tickType': 75, 'price': 336.79, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:05,585 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 13, 'tickType': 68, 'price': 336.23, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:05,586 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 13, 'tickType': 71, 'size': Decimal('100')}
+2025-06-19 13:30:05,586 - ibapi.utils - INFO - ANSWER tickString {'reqId': 13, 'tickType': 88, 'value': '1750276806'}
+2025-06-19 13:30:09,256 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 13, 'tickType': 66, 'price': -1.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:09,257 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 13, 'tickType': 69, 'size': Decimal('0')}
+2025-06-19 13:30:09,257 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 13, 'tickType': 67, 'price': -1.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:09,257 - ibapi.utils - INFO - ANSWER tickSize {'reqId': 13, 'tickType': 70, 'size': Decimal('0')}
+2025-06-19 13:30:09,258 - ibapi.utils - INFO - ANSWER tickPrice {'reqId': 13, 'tickType': 76, 'price': 0.0, 'attrib': 1978233437936: CanAutoExecute: 0, PastLimit: 0, PreOpen: 0}
+2025-06-19 13:30:09,258 - ibapi.utils - INFO - ANSWER tickSnapshotEnd {'reqId': 13}
+2025-06-19 13:30:09,258 - ibapi.utils - INFO - REQUEST cancelMktData {'reqId': 13}
+2025-06-19 13:30:09,259 - ibapi.client - INFO - SENDING cancelMktData b'\x00\x00\x00\x072\x002\x0013\x00'
+2025-06-19 13:30:09,259 - ibapi.utils - INFO - ANSWER error {'reqId': 13, 'errorCode': 300, 'errorString': "Can't find EId with tickerId:13", 'advancedOrderRejectJson': ''}
+2025-06-19 13:30:09,260 - ibapi.wrapper - ERROR - ERROR 13 300 Can't find EId with tickerId:13
+2025-06-19 13:30:09,364 - ibapi.client - INFO - disconnecting
+2025-06-19 13:30:09,364 - ibapi.utils - INFO - ANSWER connectionClosed {}
+2025-06-19 13:30:09,472 - engine.execution_manager - INFO - ExecutionManager initialized.
+2025-06-19 13:30:09,472 - engine.execution_manager - INFO - Calculating rebalancing orders for long/short portfolio...
+2025-06-19 13:30:09,472 - engine.execution_manager - INFO - Order calculation complete. Total orders to place: 6.
+2025-06-19 13:30:09,473 - engine.simulated_portfolio_manager - INFO - Simulating execution of trades to update portfolio state...
+2025-06-19 13:30:09,473 - engine.simulated_portfolio_manager - INFO - Trade simulation complete. New cash: $49,706.02, Positions: 6
+2025-06-19 13:30:09,475 - engine.simulated_portfolio_manager - INFO - Successfully saved portfolio state to data\SMOOTH_portfolio_state.csv.

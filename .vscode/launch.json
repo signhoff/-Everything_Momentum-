@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Run Trader", // A descriptive name for the debug configuration
+            "type": "debugpy",              // Specifies the debugger type
+            "request": "launch",           // "launch" starts the program; "attach" connects to a running one
+            "program": "${workspaceFolder}/main.py", // The entry point of your application
+            "console": "integratedTerminal", // Shows output in the VS Code terminal
+            "justMyCode": true             // Hides complex library code to focus on your own work
+        }
+    ]
+}

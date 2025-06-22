@@ -1,0 +1,25 @@
+# pyproject.toml
+[project]
+name = "dual_momentum_trader"
+version = "0.1.0"
+
+[tool.setuptools]
+packages = [
+    "config",
+    "utils",
+    "handlers"
+]
+py_modules = [
+    "data_manager",
+    "main",
+    "performance",
+    "risk_manager",
+    "strategies",
+    "trader"
+]
+
+# Add the section below to fix test discovery
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]

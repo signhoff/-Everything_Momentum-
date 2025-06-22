@@ -1,0 +1,10 @@
+# requirements.txt
+pandas
+numpy
+yfinance
+apscheduler
+ibapi
+matplotlib
+pytest
+pytest-asyncio
+pyarrow
