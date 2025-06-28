@@ -1,0 +1,51 @@
+# .gitignore
+
+# Environment Variables
+# NEVER commit your API keys or other secrets.
+# This file should contain your POLYGON_API_KEY.
+.env
+
+# Data Cache
+# Ignore the directory for locally cached historical data, as it can be large
+# and is specific to the user's machine.
+data/
+
+# Python specific
+# Ignore bytecode files, C extensions, and distribution packages.
+__pycache__/
+*.py[cod]
+*.so
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# IDE and Editor specific
+# Ignore settings and workspace files specific to your local machine.
+.vscode/
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Log files
+*.log
+
+# Unit test / coverage reports
+.coverage
+htmlcov/
+
+# OS-generated files
+# Ignore system-specific files that have no place in a repository.
+.DS_Store
+Thumbs.db
+
+# Build and Distribution
+# Ignore artifacts from building and distributing Python packages.
+build/
+dist/
+*.egg-info/
+
+# Testing artifacts
+.pytest_cache/
