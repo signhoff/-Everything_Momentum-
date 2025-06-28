@@ -1,4 +1,4 @@
-# quantitative_momentum_trader/engine/data_manager.py
+#engine/data_manager.py
 """
 Data Manager for the Quantitative Momentum Trading System.
 
@@ -11,11 +11,15 @@ This module is responsible for all data acquisition tasks, including:
 import logging
 import os
 import pandas as pd
+import numpy as np
 import yfinance as yf
 import time
 import json
 from datetime import datetime
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
+
+# Assuming strategy_config is in the configs directory, accessible from the project root
+from configs import strategy_config
 
 logger = logging.getLogger(__name__)
 
@@ -57,13 +61,37 @@ class DataManager:
 
         logger.info(f"DataManager initialized with {len(self.universe_tickers)} tickers from {tickers_csv_path}.")
 
-    def fetch_historical_data(self, period: str = "2y", interval: str = "1d") -> Optional[pd.DataFrame]:
+    def _get_required_fetch_period(self) -> str:
+        """
+        Calculates the required yfinance fetch period based on the longest lookback.
+        This makes the data fetching robust to changes in strategy lookback configs.
+
+        Returns:
+            str: The period string for yfinance download (e.g., "2y", "3y").
+        """
+        lookbacks = strategy_config.MOMENTUM_LOOKBACKS
+        
+        # Convert all lookbacks to an approximate number of years
+        daily_years = lookbacks.get('DAILY', 0) / 252.0
+        weekly_years = lookbacks.get('WEEKLY', 0) / 52.0
+        monthly_years = lookbacks.get('MONTHLY', 0) / 12.0
+
+        # Find the longest lookback required in years
+        max_years_required = max(daily_years, weekly_years, monthly_years, 1.0) # Ensure at least 1 year
+        
+        # Add a 1-year buffer for lags and calendar differences, then round up
+        fetch_years = int(np.ceil(max_years_required)) + 1
+        
+        logger.info(f"Determined that {fetch_years} years of data are needed to satisfy all lookback periods.")
+        return f"{fetch_years}y"
+
+    def fetch_historical_data(self, interval: str = "1d") -> Optional[pd.DataFrame]:
         """
         Fetches historical OHLCV data. It first checks for a fresh local cache
-        (from the same day) before downloading from yfinance.
+        (from the same day) before downloading from yfinance. The download period
+        is dynamically determined by the strategy configurations.
 
         Args:
-            period (str): The time period to download data for.
             interval (str): The data interval.
 
         Returns:
@@ -76,15 +104,19 @@ class DataManager:
                 self.raw_historical_data = pd.read_parquet(self.historical_data_cache_path)
                 return self.raw_historical_data
 
-        logger.info("Cache not found or stale. Downloading fresh historical data from yfinance...")
+        # Dynamically determine the required period
+        fetch_period = self._get_required_fetch_period()
+        logger.info(f"Cache not found or stale. Downloading {fetch_period} of fresh historical data from yfinance...")
+        
         if not self.universe_tickers:
             logger.warning("Cannot fetch historical data: ticker universe is empty.")
             return None
 
         try:
-            data = yf.download(self.universe_tickers, period=period, interval=interval, auto_adjust=False)
-            if data.empty:
-                logger.warning("yfinance download returned an empty DataFrame.")
+            # Use the dynamically calculated period for the download
+            data = yf.download(self.universe_tickers, period=fetch_period, interval=interval, auto_adjust=False)
+            if data is None or data.empty:
+                logger.warning("yfinance download returned no data.")
                 return None
 
             data = data.dropna(axis=1, how='all')
@@ -115,8 +147,8 @@ class DataManager:
                 return self.company_info
         
         logger.info("Company info cache not found or stale. Processing fresh info...")
-        info_dict = self.universe_df.set_index('Ticker')['Sector'].to_dict()
-        final_info_dict = {ticker: {'sector': sector, 'marketCap': None} for ticker, sector in info_dict.items()}
+        info_df = self.universe_df.set_index('Ticker')['Sector'].to_dict()
+        final_info_dict = {ticker: {'sector': sector, 'marketCap': None} for ticker, sector in info_df.items()}
 
         logger.info("Fetching market caps from yfinance...")
         for i, ticker in enumerate(self.universe_tickers):
@@ -126,7 +158,7 @@ class DataManager:
 
                 t = yf.Ticker(ticker)
                 market_cap = t.info.get('marketCap')
-                time.sleep(0.1)
+                time.sleep(0.05) # Small delay to be polite to the API
 
                 if ticker in final_info_dict:
                     final_info_dict[ticker]['marketCap'] = market_cap

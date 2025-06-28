@@ -1,25 +1,31 @@
-# quantitative_momentum_trader/main.py
+# main.py
 """
-Main execution script for the Quantitative Momentum Trading System.
+Main application file for the Quantitative Momentum Trading System.
 
-This script orchestrates the entire trading process:
-1.  Sets up logging and loads configuration.
-2.  Checks if the current day is a designated rebalancing day.
-3.  Initializes the DataManager to fetch all required market and historical data.
-4.  Instantiates the PortfolioConstructor to generate the new target portfolio
-    based on the selected strategy.
-5.  Connects to the Interactive Brokers TWS via the IBKRStockHandler.
-6.  Initializes the ExecutionManager to compare the current and target portfolios,
-    calculate the necessary trades, and execute them.
-7.  Disconnects from the TWS upon completion.
+This script runs a full end-to-end "paper trade" simulation and execution.
+It checks daily to see if a rebalance is due based on the strategy's timeframe
+(daily, weekly, or monthly) and only runs on the first business day of that period.
 
-This script is designed to be run on a schedule (e.g., a daily cron job).
+Its workflow is as follows:
+1.  On its scheduled run, it determines if a rebalance is due.
+2.  If so, it downloads historical data and connects to TWS.
+3.  It loops through strategies and timeframes due for rebalancing.
+4.  For EACH due combination, it:
+    a. Loads the local portfolio state.
+    b. Constructs a new target portfolio.
+    c. Fetches live prices for valuation.
+    d. Calculates the exact rebalancing trades needed.
+    e. Prompts the user for confirmation.
+    f. Executes the trades in the TWS paper account.
+    g. Simulates the trades locally to update the portfolio state file.
 """
 
 import logging
-import datetime
 import asyncio
 import os
+import pandas as pd
+from datetime import datetime
+from typing import List, Literal, Any
 
 # --- Project-specific Imports ---
 from configs import strategy_config, ibkr_config
@@ -27,144 +33,204 @@ from utils import logging_config
 from engine.data_manager import DataManager
 from engine.portfolio_constructor import PortfolioConstructor
 from engine.execution_manager import ExecutionManager
+from engine.simulated_portfolio_manager import SimulatedPortfolioManager
 from handlers.ibkr_stock_handler import IBKRStockHandler
 
-# Initialize a logger for this main script
 logger = logging.getLogger(__name__)
 
-def is_rebalance_day() -> bool:
-    """
-    Determines if today is a rebalancing day based on the strategy configuration.
 
-    Returns:
-        bool: True if today is a rebalance day, False otherwise.
+def is_rebalance_day(timeframe: Literal['DAILY', 'WEEKLY', 'MONTHLY']) -> bool:
     """
-    today = datetime.date.today()
-    
-    if strategy_config.REBALANCE_PERIOD == 'QUARTERLY':
-        # Rebalance months: January (1), April (4), July (7), October (10)
-        rebalance_months = [1, 4, 7, 10]
-        if today.month not in rebalance_months:
-            return False
-    elif strategy_config.REBALANCE_PERIOD == 'MONTHLY':
-        # Rebalance every month, no month check needed
-        pass
-    else:
-        logger.error(f"Unknown rebalance period: {strategy_config.REBALANCE_PERIOD}")
+    Checks if today is the first valid business day for the rebalancing period.
+    - DAILY: Always true.
+    - WEEKLY: True if today is the first business day of the week (handles Monday holidays).
+    - MONTHLY: True if today is the first business day of the month.
+    """
+    today = pd.to_datetime(datetime.today().date())  # Use pandas for robust date handling
+
+    if timeframe == 'DAILY':
+        logger.info("DAILY timeframe: Rebalancing is always triggered.")
+        return True
+
+    if timeframe == 'WEEKLY':
+        # Find the start of the current week (Monday)
+        start_of_week = today - pd.to_timedelta(today.dayofweek, unit='d')
+        # The first business day of a period is the first date in a business-day range
+        first_business_day = pd.bdate_range(start_of_week, start_of_week + pd.DateOffset(days=6))[0]
+        if today == first_business_day:
+            logger.info(f"WEEKLY timeframe: Today ({today.date()}) is the first business day of the week, triggering rebalance.")
+            return True
+        logger.info(f"WEEKLY timeframe: Today ({today.date()}) is not the first business day of the week (which is {first_business_day.date()}), skipping.")
         return False
 
-    # Check if it's the Nth trading day of the month.
-    # This is a simplified check assuming weekday = trading day.
-    # A robust implementation would use a market calendar library.
-    if today.weekday() >= 5: # Saturday or Sunday
+    if timeframe == 'MONTHLY':
+        # Find the start of the current month
+        start_of_month = today.to_period('M').to_timestamp()
+        # The first business day of a period is the first date in a business-day range
+        first_business_day = pd.bdate_range(start_of_month, start_of_month + pd.DateOffset(days=6))[0]
+        if today == first_business_day:
+            logger.info(f"MONTHLY timeframe: Today ({today.date()}) is the first business day of the month, triggering rebalance.")
+            return True
+        logger.info(f"MONTHLY timeframe: Today ({today.date()}) is not the first business day of the month (which is {first_business_day.date()}), skipping.")
         return False
-        
-    # Check if it's the first weekday of the month
-    if today.day <= 7 and today.weekday() < 5: # First week
-        # Simple check for the first trading day
-        if strategy_config.REBALANCE_DAY_OF_PERIOD == 1:
-            first_day_of_month = today.replace(day=1)
-            # Find the first weekday
-            first_trading_day = first_day_of_month
-            while first_trading_day.weekday() >= 5:
-                first_trading_day += datetime.timedelta(days=1)
-            
-            return today == first_trading_day
-    
+
     return False
 
-async def main_async_workflow():
+
+async def run_simulation_workflow():
     """
-    The main asynchronous workflow for the trading system.
+    Main asynchronous workflow. Connects to TWS, calculates trades,
+    and executes them upon user confirmation.
     """
-    logger.info("--- Starting Quantitative Momentum Trading System ---")
-    
-    if not is_rebalance_day():
-        logger.info("Today is not a rebalance day. Exiting.")
+    logger.info("--- [LIVE PAPER TRADING RUN] Starting Quantitative Momentum Trading System ---")
+
+    # --- Define Strategies and Timeframes to Run ---o
+    strategies_to_run: List[Literal['CORE', 'SMOOTH', 'FROG_IN_PAN']] = ['CORE', 'SMOOTH', 'FROG_IN_PAN']
+    timeframes_to_run: List[Literal['DAILY', 'WEEKLY', 'MONTHLY']] = ['MONTHLY', 'WEEKLY', 'DAILY']
+    initial_portfolio_cash = 10000.0
+
+    # --- Check which timeframes are due for rebalancing ---
+    timeframes_due = [tf for tf in timeframes_to_run if is_rebalance_day(tf)]
+
+    if not timeframes_due:
+        logger.info("No timeframes are due for rebalancing today. Exiting workflow.")
+        print("No timeframes are due for rebalancing today.")
         return
 
-    logger.info("REBALANCE DAY DETECTED. Starting the rebalancing process...")
-
-    # --- 1. Data Acquisition ---
-    logger.info("--- [Step 1/4] Data Acquisition ---")
+    # --- Step 1 (Once): Data Acquisition ---
+    print("\n--- [Step 1] Acquiring Base Historical Data (once for all simulations) ---")
     data_manager = DataManager(tickers_csv_path=strategy_config.UNIVERSE_TICKERS_CSV_PATH)
-    hist_data = data_manager.fetch_historical_data(period=strategy_config.YFINANCE_DATA_PERIOD)
-    comp_info = data_manager.fetch_company_info()
-
-    if hist_data is None or not comp_info:
-        logger.error("Failed to acquire necessary data. Aborting rebalance.")
+    hist_data = data_manager.fetch_historical_data()
+    if hist_data is None:
+        logger.error("Failed to acquire historical data. Aborting run.")
         return
+    comp_info = data_manager.fetch_company_info()
+    print("✅ Base historical and company data acquired.")
 
-    # --- 2. Portfolio Construction ---
-    logger.info("--- [Step 2/4] Portfolio Construction ---")
-    portfolio_constructor = PortfolioConstructor(
-        historical_data=hist_data,
-        company_info=comp_info,
-        config=strategy_config
-    )
-    target_portfolio_tickers = portfolio_constructor.generate_target_portfolio()
-    
-    if not target_portfolio_tickers:
-        logger.warning("Portfolio construction resulted in an empty target portfolio. No trades will be made.")
-        # Decide if we should liquidate everything or hold. For now, we just won't place new trades.
-    
-    logger.info(f"Generated target portfolio with {len(target_portfolio_tickers)} stocks.")
-
-    # --- 3. Connection and Execution ---
-    logger.info("--- [Step 3/4] Connection and Execution ---")
+    # --- Manage a single IBKR connection for the entire run ---
     ibkr_handler = IBKRStockHandler()
-    
     try:
-        # Connect to Interactive Brokers TWS
-        is_connected = await ibkr_handler.connect(
-            host=ibkr_config.HOST,
-            port=ibkr_config.PORT,
-            clientId=ibkr_config.CLIENT_ID_GUI_GENERAL
-        )
-
+        # Connect once at the beginning
+        print("\n--- [Connecting to TWS] ---")
+        is_connected = await ibkr_handler.connect(host=ibkr_config.HOST, port=ibkr_config.PORT, clientId=ibkr_config.CLIENT_ID_GUI_GENERAL)
         if not is_connected:
-            logger.error("Failed to connect to IBKR TWS. Aborting execution.")
+            logger.critical("Could not connect to TWS. Aborting run.")
+            print("❌ Could not connect to TWS. Please ensure TWS is running and API is enabled.")
             return
+        print("✅ Connected to TWS.")
 
-        execution_manager = ExecutionManager(ibkr_handler, strategy_config)
+        # --- Main Loop to run for each DUE strategy and timeframe ---
+        for timeframe in timeframes_due:
+            for strategy_name in strategies_to_run:
+                print(f"\n\n================== Running: Strategy={strategy_name}, Timeframe={timeframe} ==================")
+                logger.info(f"--- Starting simulation for Strategy: {strategy_name}, Timeframe: {timeframe} ---")
 
-        # Get current portfolio from IBKR
-        current_portfolio = await execution_manager.get_current_portfolio()
+                strategy_config.STRATEGY_NAME = strategy_name
 
-        # Calculate trades needed
-        orders = await execution_manager.calculate_rebalance_orders(
-            target_portfolio=target_portfolio_tickers,
-            current_portfolio=current_portfolio
-        )
-        
-        # Execute the rebalance
-        await execution_manager.execute_rebalance(
-            orders_to_liquidate=orders['orders_to_liquidate'],
-            orders_to_place=orders['orders_to_place']
-        )
+                # --- Step 2: Load Simulated Portfolio ---
+                portfolio_file = f'{strategy_name}_{timeframe}_portfolio_state.csv'
+                portfolio_csv_path = os.path.join('data', portfolio_file)
+                print(f"\n--- [Step 2/8] Loading Portfolio: {portfolio_file} ---")
+                sim_portfolio = SimulatedPortfolioManager(csv_path=portfolio_csv_path, initial_cash=initial_portfolio_cash)
+                print(f"✅ Portfolio loaded. Cash: ${sim_portfolio.cash:,.2f}, Positions: {len(sim_portfolio.positions)}")
 
-    except Exception as e:
-        logger.error(f"An error occurred during the execution phase: {e}", exc_info=True)
+                # --- Step 3: Portfolio Construction ---
+                print(f"\n--- [Step 3/8] Constructing Target Portfolio ---")
+                portfolio_constructor = PortfolioConstructor(hist_data, comp_info, strategy_config)
+                target_portfolio, detailed_report_df = portfolio_constructor.generate_target_portfolio(timeframe=timeframe)
+                print(f"✅ Target Portfolio generated. Longs: {len(target_portfolio['longs'])}, Shorts: {len(target_portfolio['shorts'])}")
+
+                # --- Step 4: Save Detailed Report ---
+                print(f"\n--- [Step 4/8] Saving Detailed Report ---")
+                try:
+                    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                    report_file = f"{strategy_name}_{timeframe}_report_{timestamp}.csv"
+                    report_path = os.path.join('output', report_file)
+                    report_cols = ['Rank', 'Decile', 'Momentum', 'Volatility', 'PositivePeriods', 'marketCap', 'sector']
+                    final_cols = [col for col in report_cols if col in detailed_report_df.columns]
+                    if not detailed_report_df.empty:
+                        detailed_report_df[final_cols].to_csv(report_path)
+                        print(f"✅ Detailed report saved to: {report_path}")
+                except Exception as e:
+                    logger.error(f"Failed to save detailed report: {e}")
+
+                # --- Step 5: Fetch Live Prices via TWS ---
+                print(f"\n--- [Step 5/8] Fetching Live Prices ---")
+                tickers_needed = set(sim_portfolio.positions.keys()) | set(target_portfolio.get('longs', [])) | set(target_portfolio.get('shorts', []))
+                print(f"Fetching live prices for {len(tickers_needed)} unique tickers...")
+                live_prices = await ibkr_handler.get_current_stock_prices_for_tickers(list(tickers_needed))
+                print(f"✅ Fetched {len(live_prices)} prices.")
+
+                # --- Step 6: Portfolio Valuation ---
+                print(f"\n--- [Step 6/8] Portfolio Valuation ---")
+                total_portfolio_value = sim_portfolio.get_total_value(live_prices)
+                print(f"✅ Current Total Portfolio Value: ${total_portfolio_value:,.2f}")
+
+                # --- Step 7: Trade Calculation ---
+                print(f"\n--- [Step 7/8] Calculating Rebalance Orders ---")
+                # Create a temporary ExecutionManager for calculation only (handler is None)
+                temp_exec_manager = ExecutionManager(ibkr_handler=None, config=strategy_config)
+                calculated_orders = await temp_exec_manager.calculate_rebalance_orders(
+                    target_portfolio, sim_portfolio.positions, total_portfolio_value, live_prices
+                )
+                all_orders = calculated_orders.get('all_orders', [])
+
+                print(f"\n--- [PROCESS OUTPUT] Calculated Trades for {strategy_name} ({timeframe}) ---")
+                if all_orders:
+                    for order in all_orders:
+                        print(f"  - {order['action']:<7} | {order['ticker']:<6} | Qty: {order['quantity']}")
+                else:
+                    print("  - No trades needed. Portfolio is aligned with target.")
+
+                # --- Step 8: Trade Execution (Live in TWS) ---
+                print(f"\n--- [Step 8/8] EXECUTION ---")
+                if all_orders:
+                    try:
+                        # SAFETY PROMPT
+                        confirm = input("Press Enter to execute the calculated trades in TWS Paper Account, or type 'skip' to continue without trading: ")
+                        if confirm.lower() == 'skip':
+                            print("Skipping execution for this run.")
+                            logger.warning("User skipped trade execution.")
+                        else:
+                            # Create a new ExecutionManager with the live handler for execution
+                            live_exec_manager = ExecutionManager(ibkr_handler=ibkr_handler, config=strategy_config)
+                            await live_exec_manager.execute_rebalance_orders(all_orders)
+                            print("✅ Orders submitted to TWS.")
+                    except (KeyboardInterrupt, SystemExit):
+                        logger.warning("Execution interrupted by user.")
+                        print("\nExecution aborted by user.")
+                        # Do not proceed with saving state if execution was aborted
+                        return
+                
+                # Always simulate the trades to keep the local portfolio state file up-to-date
+                sim_portfolio.simulate_trades(all_orders, live_prices)
+                sim_portfolio.save_portfolio()
+                print(f"✅ New portfolio state saved to {portfolio_csv_path}")
+
     finally:
-        # --- 4. Disconnect ---
-        logger.info("--- [Step 4/4] Disconnecting ---")
+        # Disconnect at the very end
         if ibkr_handler.is_connected():
+            print("\n--- [Disconnecting from TWS] ---")
             await ibkr_handler.disconnect()
-        logger.info("--- Quantitative Momentum Trading System Finished ---")
+            print("✅ Disconnected from TWS.")
+
+    print("\n\n================== Live Paper Trading Run Finished ==================")
 
 
 if __name__ == "__main__":
-    # Ensure log directory exists
-    if not os.path.exists('logs'):
-        os.makedirs('logs')
-        
-    # Setup logging configuration
+    for dir_name in ['logs', 'data', 'output']:
+        if not os.path.exists(dir_name):
+            os.makedirs(dir_name)
+
     logging_config.setup_logging(log_level='INFO')
-    
-    # Run the main asynchronous event loop
+
     try:
-        asyncio.run(main_async_workflow())
+        print("---")
+        print("--- Make sure your Interactive Brokers TWS or Gateway is running ---")
+        print(f"--- and the API port is set to {ibkr_config.PORT} for paper trading. ---")
+        input("Press Enter to start the batch simulation workflow...")
+        asyncio.run(run_simulation_workflow())
     except (KeyboardInterrupt, SystemExit):
-        logger.info("Application manually interrupted. Shutting down.")
+        logger.info("Simulation run manually interrupted.")
     except Exception as e:
-        logger.critical(f"An unhandled critical error occurred in main: {e}", exc_info=True)
+        logger.critical(f"An unhandled critical error occurred in the simulation: {e}", exc_info=True)

@@ -1,102 +1,174 @@
-# quantitative_momentum_trader/engine/execution_manager.py
+# engine/execution_manager.py
 """
-Execution Manager for the Quantitative Momentum Trading System.
-
-This module is responsible for the trade calculation part of the rebalancing process.
-It interfaces with the Interactive Brokers (IBKR) handler to get prices, and calculates
-the necessary buy/sell orders to align the portfolio based on total value.
+Handles the calculation and execution of rebalancing trades.
 """
-
 import logging
-from typing import List, Dict, Any, Optional
 import math
+import asyncio
+from typing import Dict, List, Any
 
+# --- NEW: Imports for creating IBKR Contracts and Orders ---
 from ibapi.contract import Contract
 from ibapi.order import Order
 
+# --- Project-specific Imports ---
 from handlers.ibkr_stock_handler import IBKRStockHandler
 
 logger = logging.getLogger(__name__)
 
 class ExecutionManager:
     """
-    Manages the rebalancing calculation by interacting with a brokerage handler.
+    Calculates rebalancing orders and executes them via the IBKR handler.
     """
-    def __init__(self, ibkr_handler: Optional[IBKRStockHandler], config: Any):
+    # --- MODIFIED: __init__ now requires an IBKRStockHandler instance ---
+    def __init__(self, ibkr_handler: IBKRStockHandler, config: Any):
+        """
+        Initializes the ExecutionManager.
+
+        Args:
+            ibkr_handler (IBKRStockHandler): An active IBKR handler for placing orders.
+            config (Any): The strategy configuration module.
+        """
         self.ibkr_handler = ibkr_handler
         self.config = config
-        logger.info("ExecutionManager initialized.")
+        logger.info("ExecutionManager initialized for live order execution.")
 
-    async def calculate_rebalance_orders(
-        self, 
-        target_portfolio: Dict[str, List[str]], 
-        current_portfolio: Dict[str, int],
-        total_portfolio_value: float,
-        current_prices: Dict[str, float]
-    ) -> Dict[str, List[Dict]]:
+    async def calculate_rebalance_orders(self,
+                                         target_portfolio: Dict[str, List[str]],
+                                         current_positions: Dict[str, int],
+                                         total_portfolio_value: float,
+                                         current_prices: Dict[str, float]) -> Dict[str, List[Dict[str, Any]]]:
         """
-        Compares the target and current portfolios to generate rebalancing orders
-        with actual quantities based on an equal-weighting scheme.
+        Calculates the orders needed to rebalance the current portfolio to the target.
 
         Args:
             target_portfolio (Dict[str, List[str]]): Dict with 'longs' and 'shorts' lists.
-            current_portfolio (Dict[str, int]): The current positions from the simulation.
-            total_portfolio_value (float): The total current value of the simulated portfolio.
-            current_prices (Dict[str, float]): A dictionary of current market prices for tickers.
+            current_positions (Dict[str, int]): Dict of current tickers and quantities.
+            total_portfolio_value (float): The total current value of the portfolio.
+            current_prices (Dict[str, float]): Dict of tickers and their live prices.
 
         Returns:
-            Dict[str, List[Dict]]: A dictionary containing four lists of calculated orders.
+            Dict containing a list of all order details.
         """
-        logger.info("Calculating rebalancing orders for long/short portfolio...")
+        all_orders: List[Dict[str, Any]] = []
         
-        target_longs = target_portfolio.get('longs', [])
-        target_shorts = target_portfolio.get('shorts', [])
+        target_longs = set(target_portfolio.get('longs', []))
+        target_shorts = set(target_portfolio.get('shorts', []))
+        current_holdings = set(current_positions.keys())
+
+        # --- Step 1: Calculate Sell Orders ---
+        # Sell longs that are no longer in the target long portfolio.
+        longs_to_sell = current_holdings.intersection(
+            {t for t, q in current_positions.items() if q > 0}
+        ) - target_longs
         
-        # Determine the dollar amount to allocate to each position
-        # For a long/short portfolio, we allocate half the value to longs and half to shorts.
-        total_positions = len(target_longs) + len(target_shorts)
-        if total_positions == 0:
-            logger.warning("Target portfolio is empty, no new positions to calculate.")
-            position_size_per_stock = 0
-        else:
-            # This is a simplified equal-weight allocation
-            position_size_per_stock = total_portfolio_value / total_positions
-
-        # --- Calculate target quantities for new portfolio ---
-        target_quantities = {}
-        for ticker in target_longs:
-            price = current_prices.get(ticker)
-            if price:
-                target_quantities[ticker] = math.floor(position_size_per_stock / price)
-        for ticker in target_shorts:
-            price = current_prices.get(ticker)
-            if price:
-                # Store short quantities as negative numbers
-                target_quantities[ticker] = -math.floor(position_size_per_stock / price)
-
-        # --- Determine actions by comparing current state to target state ---
-        all_relevant_tickers = set(current_portfolio.keys()) | set(target_quantities.keys())
-        orders = []
-
-        for ticker in all_relevant_tickers:
-            current_qty = current_portfolio.get(ticker, 0)
-            target_qty = target_quantities.get(ticker, 0)
-            
-            if current_qty == target_qty:
-                continue # No trade needed
-
-            trade_qty = abs(target_qty - current_qty)
-            
-            if target_qty > current_qty:
-                # Need to buy (either to open a new long or cover/reduce a short)
-                action = 'BUY'
-            else:
-                # Need to sell (either to close a long or open/add to a short)
-                action = 'SELL' if current_qty > 0 else 'SSHORT'
-
-            orders.append({
-                'ticker': ticker, 'action': action, 'quantity': trade_qty, 'order_type': self.config.ORDER_TYPE
+        for ticker in longs_to_sell:
+            quantity_to_sell = current_positions[ticker]
+            all_orders.append({
+                'action': 'SELL', 'ticker': ticker, 'quantity': quantity_to_sell,
+                'orderType': self.config.ORDER_TYPE
             })
+            logger.info(f"Calculated SELL order for {quantity_to_sell} shares of {ticker}.")
 
-        logger.info(f"Order calculation complete. Total orders to place: {len(orders)}.")
-        return {'all_orders': orders}
+        # Cover shorts that are no longer in the target short portfolio.
+        shorts_to_cover = current_holdings.intersection(
+            {t for t, q in current_positions.items() if q < 0}
+        ) - target_shorts
+        
+        for ticker in shorts_to_cover:
+            # Quantity will be negative, so we take its absolute value
+            quantity_to_buy_back = abs(current_positions[ticker])
+            all_orders.append({
+                'action': 'BUY', 'ticker': ticker, 'quantity': quantity_to_buy_back,
+                'orderType': self.config.ORDER_TYPE
+            })
+            logger.info(f"Calculated BUY to cover order for {quantity_to_buy_back} shares of {ticker}.")
+
+        # --- Step 2: Calculate Buy/Short Orders ---
+        # The total number of positions we want to hold (long and short)
+        total_target_positions = len(target_longs) + len(target_shorts)
+        if total_target_positions == 0:
+            logger.info("Target portfolio is empty, no new buy/short orders to calculate.")
+            return {'all_orders': all_orders}
+
+        # Calculate position size, assuming equal weight for simplicity
+        # For a long/short portfolio, total value is used to size each leg.
+        # A more complex model might allocate 100% to longs and 100% to shorts.
+        # Here we use a simpler equal weight across all positions.
+        position_size_per_stock = total_portfolio_value / total_target_positions
+
+        # Buy new longs that are not in the current portfolio.
+        longs_to_buy = target_longs - current_holdings
+        for ticker in longs_to_buy:
+            price = current_prices.get(ticker)
+            if price and price > 0:
+                quantity_to_buy = math.floor(position_size_per_stock / price)
+                if quantity_to_buy > 0:
+                    all_orders.append({
+                        'action': 'BUY', 'ticker': ticker, 'quantity': quantity_to_buy,
+                        'orderType': self.config.ORDER_TYPE
+                    })
+                    logger.info(f"Calculated BUY order for {quantity_to_buy} shares of {ticker}.")
+            else:
+                logger.warning(f"Could not get a valid price for {ticker}, cannot calculate buy order.")
+        
+        # Short new shorts that are not in the current portfolio.
+        shorts_to_add = target_shorts - current_holdings
+        for ticker in shorts_to_add:
+            price = current_prices.get(ticker)
+            if price and price > 0:
+                quantity_to_short = math.floor(position_size_per_stock / price)
+                if quantity_to_short > 0:
+                     all_orders.append({
+                        'action': 'SELL', 'ticker': ticker, 'quantity': quantity_to_short,
+                        'orderType': self.config.ORDER_TYPE
+                    })
+                     logger.info(f"Calculated SELL (short) order for {quantity_to_short} shares of {ticker}.")
+            else:
+                logger.warning(f"Could not get a valid price for {ticker}, cannot calculate short order.")
+                
+        return {'all_orders': all_orders}
+
+
+    # --- NEW: Method to execute trades ---
+    async def execute_rebalance_orders(self, calculated_orders: List[Dict[str, Any]]):
+        """
+        Executes a list of calculated orders in TWS.
+
+        Args:
+            calculated_orders (List[Dict[str, Any]]): The list of orders to execute.
+                                                      From the 'all_orders' key.
+        """
+        if not calculated_orders:
+            logger.info("No orders to execute.")
+            return
+
+        logger.info(f"Preparing to execute {len(calculated_orders)} orders.")
+        for order_details in calculated_orders:
+            ticker = order_details['ticker']
+            
+            # 1. Create the IBKR Contract object
+            contract = Contract()
+            contract.symbol = ticker
+            contract.secType = "STK"
+            contract.exchange = "SMART"
+            contract.currency = "USD"
+
+            # 2. Create the IBKR Order object
+            order = Order()
+            order.action = order_details['action']
+            order.orderType = self.config.ORDER_TYPE
+            order.totalQuantity = order_details['quantity']
+            order.outsideRth = self.config.EXECUTE_ORDERS_OUTSIDE_RTH
+            
+            # 3. Place the order
+            print(f"  - Submitting {order.action} order for {order.totalQuantity} shares of {ticker}...")
+            try:
+                # --- MODIFIED: Swapped arguments to match the new standardized function signature ---
+                await self.ibkr_handler.execute_order_async(contract, order)
+                
+                # Use configured delay to avoid overwhelming the API
+                await asyncio.sleep(self.config.DELAY_BETWEEN_BUYS_S)
+            except Exception as e:
+                logger.error(f"Failed to place order for {ticker}: {e}", exc_info=True)
+                print(f"  - ERROR placing order for {ticker}. Check logs.")
